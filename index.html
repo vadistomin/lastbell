@@ -38,7 +38,6 @@ body {
   padding: 20px;
 }
 
-/* Comic Book Style */
 .comic-panel {
   background: var(--marvel-white);
   border: var(--border-comic);
@@ -69,7 +68,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Speech Bubble */
 .speech-bubble {
   background: var(--marvel-white);
   border: var(--border-comic);
@@ -80,30 +78,6 @@ body {
   box-shadow: var(--shadow-comic);
 }
 
-.speech-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 30px;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-top-color: var(--marvel-black);
-}
-
-.speech-bubble::before {
-  content: '';
-  position: absolute;
-  bottom: -16px;
-  left: 32px;
-  width: 0;
-  height: 0;
-  border: 8px solid transparent;
-  border-top-color: var(--marvel-white);
-  z-index: 1;
-}
-
-/* Buttons */
 .btn-comic {
   background: var(--marvel-red);
   color: var(--marvel-white);
@@ -118,6 +92,7 @@ body {
   min-height: 44px;
   min-width: 44px;
   letter-spacing: 1px;
+  font-family: 'Arial Black', Arial, sans-serif;
 }
 
 .btn-comic:hover {
@@ -139,12 +114,6 @@ body {
   background: var(--marvel-blue);
 }
 
-.btn-comic.btn-yellow {
-  background: var(--marvel-yellow);
-  color: var(--marvel-black);
-}
-
-/* Cards Grid */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -161,20 +130,7 @@ body {
   transition: all 0.2s;
   position: relative;
   overflow: hidden;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle, var(--marvel-red) 1px, transparent 1px);
-  background-size: 15px 15px;
-  opacity: 0.1;
-  pointer-events: none;
+  user-select: none;
 }
 
 .card:hover {
@@ -227,7 +183,6 @@ body {
   color: var(--marvel-white);
 }
 
-/* Section Header */
 .section-header {
   background: var(--marvel-blue);
   color: var(--marvel-yellow);
@@ -241,7 +196,6 @@ body {
   letter-spacing: 2px;
 }
 
-/* Counter */
 .counter {
   background: var(--marvel-red);
   color: var(--marvel-white);
@@ -254,7 +208,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Navigation */
 .nav-buttons {
   display: flex;
   gap: 15px;
@@ -263,7 +216,6 @@ body {
   margin: 30px 0;
 }
 
-/* Final Results */
 .results-section {
   background: var(--marvel-white);
   border: var(--border-comic);
@@ -310,7 +262,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Start Screen */
 .start-screen {
   text-align: center;
   padding: 40px 20px;
@@ -340,7 +291,6 @@ body {
   line-height: 1.6;
 }
 
-/* Empty State */
 .empty-state {
   text-align: center;
   padding: 40px 20px;
@@ -348,7 +298,40 @@ body {
   font-size: 1.2rem;
 }
 
-/* Responsive */
+.screen {
+  display: none;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.progress-bar {
+  background: var(--marvel-white);
+  border: var(--border-comic);
+  height: 30px;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--marvel-red);
+  height: 100%;
+  transition: width 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--marvel-white);
+  font-weight: bold;
+}
+
 @media (max-width: 600px) {
   .cards-grid {
     grid-template-columns: 1fr;
@@ -371,60 +354,12 @@ body {
     flex-direction: column;
   }
 }
-
-/* Screen transitions */
-.screen {
-  display: none;
-  animation: fadeIn 0.3s ease-in;
-}
-
-.screen.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Progress Bar */
-.progress-bar {
-  background: var(--marvel-white);
-  border: var(--border-comic);
-  height: 30px;
-  margin: 20px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.progress-fill {
-  background: var(--marvel-red);
-  height: 100%;
-  transition: width 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--marvel-white);
-  font-weight: bold;
-}
-
-/* Comic Effect Text */
-.comic-effect {
-  position: absolute;
-  font-size: 3rem;
-  color: var(--marvel-yellow);
-  text-shadow: 3px 3px 0 var(--marvel-black);
-  transform: rotate(-15deg);
-  pointer-events: none;
-  opacity: 0.3;
-}
 </style>
 </head>
 <body>
 <div id="app"></div>
 
 <script>
-// Constants - Data
 const GENRES = [
   { id: 'melodrama', name: 'Мелодрама', desc: 'Эмоциональная история с акцентом на чувства и отношения. Подходит для трогательных моментов прощания со школой.' },
   { id: 'tragedy', name: 'Трагедия', desc: 'Серьезное произведение с драматическим финалом. Может символизировать конец школьной эпохи.' },
@@ -455,7 +390,7 @@ const CONCEPTS = [
   { id: 'zombies', name: 'Зомби', desc: 'Апокалипсис с зомби. Динамичный и захватывающий сценарий.' },
   { id: 'vampires', name: 'Вампиры', desc: 'Мистическая история о вампирах. Загадочная и романтичная атмосфера.' },
   { id: 'medieval', name: 'Средневековье', desc: 'Эпоха рыцарей и замков. Эпическое путешествие в прошлое.' },
-  { id: 'superheroes', name: 'Супергерои', desc: 'История о супергероях спасających мир. Вдохновляющий сценарий.' },
+  { id: 'superheroes', name: 'Супергерои', desc: 'История о супергероях спасющих мир. Вдохновляющий сценарий.' },
   { id: 'space', name: 'Космос', desc: 'Путешествие в космос и другие планеты. Футуристическая атмосфера.' },
   { id: 'spies', name: 'Шпионы', desc: 'Шпионская история с секретами и миссиями. Интригующий сюжет.' },
   { id: 'pirates', name: 'Пираты', desc: 'Морские приключения пиратов. Свобода и дух авантюризма.' },
@@ -464,7 +399,6 @@ const CONCEPTS = [
   { id: 'timetravel', name: 'Путешествия во времени', desc: 'Перемещение между эпохами. Увлекательное приключение.' }
 ];
 
-// State
 let state = {
   currentScreen: 'start',
   selectedGenres: [],
@@ -473,19 +407,18 @@ let state = {
   currentCategory: 'genres'
 };
 
-// Load from localStorage
 function loadState() {
-  const saved = localStorage.getItem('scenarioChoice');
-  if (saved) {
-    try {
-      state = JSON.parse(saved);
-    } catch (e) {
-      console.error('Error loading state:', e);
+  try {
+    const saved = localStorage.getItem('scenarioChoice');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state = parsed;
     }
+  } catch (e) {
+    console.error('Error loading state:', e);
   }
 }
 
-// Save to localStorage
 function saveState() {
   try {
     localStorage.setItem('scenarioChoice', JSON.stringify(state));
@@ -494,162 +427,198 @@ function saveState() {
   }
 }
 
-// Render functions
-function render() {
+function clearApp() {
   const app = document.getElementById('app');
-  app.innerHTML = '';
-  
-  switch (state.currentScreen) {
-    case 'start':
-      renderStartScreen(app);
-      break;
-    case 'selection':
-      renderSelectionScreen(app);
-      break;
-    case 'final':
-      renderFinalScreen(app);
-      break;
+  while (app.firstChild) {
+    app.removeChild(app.firstChild);
   }
 }
 
-function renderStartScreen(container) {
+function createStartScreen() {
   const screen = document.createElement('main');
   screen.className = 'screen active start-screen';
   screen.setAttribute('role', 'main');
   
-  screen.innerHTML = `
-    <div class="comic-panel">
-      <h1 class="start-logo">ЧАС ОБЩЕНИЯ</h1>
-      <h2 class="comic-subtitle">Выбор сценария для последнего звонка</h2>
-      
-      <div class="speech-bubble">
-        <p style="font-size: 1.1rem; line-height: 1.6;">
-          Привет, одиннадцатиклассники! Пришло время создать незабываемый сценарий для вашего последнего звонка! 
-          Вместе мы выберем лучшие жанры, стили и концепции для вашего праздника.
-        </p>
-      </div>
-      
-      <div class="comic-panel" style="margin: 30px 0;">
-        <h3 style="color: var(--marvel-blue); font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase;">
-          Что вас ждет:
-        </h3>
-        <ul style="list-style: none; padding: 0; text-align: left; max-width: 500px; margin: 0 auto;">
-          <li style="padding: 10px; margin: 10px 0; background: var(--marvel-yellow); border: 2px solid var(--marvel-black);">
-            📚 10 жанров для выбора
-          </li>
-          <li style="padding: 10px; margin: 10px 0; background: var(--marvel-yellow); border: 2px solid var(--marvel-black);">
-            🎨 10 стилей оформления
-          </li>
-          <li style="padding: 10px; margin: 10px 0; background: var(--marvel-yellow); border: 2px solid var(--marvel-black);">
-            🎭 10 концепций сценария
-          </li>
-          <li style="padding: 10px; margin: 10px 0; background: var(--marvel-yellow); border: 2px solid var(--marvel-black);">
-            ⭐ Финальный выбор топ-3 в каждой категории
-          </li>
-        </ul>
-      </div>
-      
-      <button class="btn-comic" id="startBtn" aria-label="Начать выбор сценария">
-        НАЧАТЬ ВЫБОР!
-      </button>
-    </div>
-  `;
+  const panel = document.createElement('div');
+  panel.className = 'comic-panel';
   
-  container.appendChild(screen);
+  const logo = document.createElement('h1');
+  logo.className = 'start-logo';
+  logo.textContent = 'ЧАС ОБЩЕНИЯ';
+  panel.appendChild(logo);
   
-  document.getElementById('startBtn').addEventListener('click', () => {
+  const subtitle = document.createElement('h2');
+  subtitle.className = 'comic-subtitle';
+  subtitle.textContent = 'Выбор сценария для последнего звонка';
+  panel.appendChild(subtitle);
+  
+  const bubble = document.createElement('div');
+  bubble.className = 'speech-bubble';
+  const bubbleText = document.createElement('p');
+  bubbleText.style.fontSize = '1.1rem';
+  bubbleText.style.lineHeight = '1.6';
+  bubbleText.textContent = 'Привет, одиннадцатиклассники! Пришло время создать незабываемый сценарий для вашего последнего звонка! Вместе мы выберем лучшие жанры, стили и концепции для вашего праздника.';
+  bubble.appendChild(bubbleText);
+  panel.appendChild(bubble);
+  
+  const infoPanel = document.createElement('div');
+  infoPanel.className = 'comic-panel';
+  infoPanel.style.margin = '30px 0';
+  
+  const infoTitle = document.createElement('h3');
+  infoTitle.style.color = 'var(--marvel-blue)';
+  infoTitle.style.fontSize = '1.5rem';
+  infoTitle.style.marginBottom = '15px';
+  infoTitle.style.textTransform = 'uppercase';
+  infoTitle.textContent = 'Что вас ждет:';
+  infoPanel.appendChild(infoTitle);
+  
+  const list = document.createElement('ul');
+  list.style.listStyle = 'none';
+  list.style.padding = '0';
+  list.style.textAlign = 'left';
+  list.style.maxWidth = '500px';
+  list.style.margin = '0 auto';
+  
+  const items = [
+    '📚 10 жанров для выбора',
+    ' 10 стилей оформления',
+    ' 10 концепций сценария',
+    '⭐ Финальный выбор топ-3 в каждой категории'
+  ];
+  
+  items.forEach(itemText => {
+    const li = document.createElement('li');
+    li.style.padding = '10px';
+    li.style.margin = '10px 0';
+    li.style.background = 'var(--marvel-yellow)';
+    li.style.border = '2px solid var(--marvel-black)';
+    li.textContent = itemText;
+    list.appendChild(li);
+  });
+  
+  infoPanel.appendChild(list);
+  panel.appendChild(infoPanel);
+  
+  const startBtn = document.createElement('button');
+  startBtn.className = 'btn-comic';
+  startBtn.id = 'startBtn';
+  startBtn.setAttribute('aria-label', 'Начать выбор сценария');
+  startBtn.textContent = 'НАЧАТЬ ВЫБОР!';
+  startBtn.addEventListener('click', () => {
     state.currentScreen = 'selection';
     state.currentCategory = 'genres';
     saveState();
     render();
   });
+  panel.appendChild(startBtn);
+  
+  screen.appendChild(panel);
+  return screen;
 }
 
-function renderSelectionScreen(container) {
+function createCard(item, isSelected) {
+  const card = document.createElement('div');
+  card.className = 'card' + (isSelected ? ' selected' : '');
+  card.dataset.id = item.id;
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-pressed', isSelected.toString());
+  
+  const checkbox = document.createElement('div');
+  checkbox.className = 'card-checkbox';
+  checkbox.textContent = isSelected ? '✓' : '';
+  card.appendChild(checkbox);
+  
+  const title = document.createElement('h3');
+  title.className = 'card-title';
+  title.textContent = item.name;
+  card.appendChild(title);
+  
+  const desc = document.createElement('p');
+  desc.className = 'card-description';
+  desc.textContent = item.desc;
+  card.appendChild(desc);
+  
+  return card;
+}
+
+function createSelectionScreen() {
   const screen = document.createElement('main');
   screen.className = 'screen active';
   screen.setAttribute('role', 'main');
   
-  let data, selectedItems, title, category;
+  let data, selectedItems, title;
   
   if (state.currentCategory === 'genres') {
     data = GENRES;
     selectedItems = state.selectedGenres;
     title = 'ЖАНРЫ';
-    category = 'genres';
   } else if (state.currentCategory === 'styles') {
     data = STYLES;
     selectedItems = state.selectedStyles;
     title = 'СТИЛИ';
-    category = 'styles';
   } else {
     data = CONCEPTS;
     selectedItems = state.selectedConcepts;
     title = 'КОНЦЕПЦИИ';
-    category = 'concepts';
   }
   
-  screen.innerHTML = `
-    <div class="comic-panel">
-      <h1 class="comic-title">ВЫБОР: ${title}</h1>
-      
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: ${state.currentCategory === 'genres' ? '33' : state.currentCategory === 'styles' ? '66' : '100'}%">
-          ${state.currentCategory === 'genres' ? '1/3' : state.currentCategory === 'styles' ? '2/3' : '3/3'}
-        </div>
-      </div>
-      
-      <div class="speech-bubble">
-        <p style="font-size: 1.1rem;">
-          Выберите подходящие варианты для вашего класса. Можно выбрать несколько!
-        </p>
-      </div>
-      
-      <div class="counter">
-        Выбрано: <span id="counter">${selectedItems.length}</span>
-      </div>
-      
-      <div class="cards-grid" id="cardsGrid">
-        ${data.map(item => `
-          <div class="card ${selectedItems.includes(item.id) ? 'selected' : ''}" 
-               data-id="${item.id}" 
-               role="button" 
-               tabindex="0"
-               aria-pressed="${selectedItems.includes(item.id)}">
-            <div class="card-checkbox">
-              ${selectedItems.includes(item.id) ? '✓' : ''}
-            </div>
-            <h3 class="card-title">${item.name}</h3>
-            <p class="card-description">${item.desc}</p>
-          </div>
-        `).join('')}
-      </div>
-      
-      <div class="nav-buttons">
-        ${state.currentCategory !== 'genres' ? `
-          <button class="btn-comic btn-blue" id="prevBtn" aria-label="Предыдущая категория">
-            ← НАЗАД
-          </button>
-        ` : ''}
-        
-        ${state.currentCategory !== 'concepts' ? `
-          <button class="btn-comic" id="nextBtn" aria-label="Следующая категория">
-            ДАЛЕЕ →
-          </button>
-        ` : `
-          <button class="btn-comic" id="finalBtn" aria-label="Показать результаты">
-            ПОКАЗАТЬ РЕЗУЛЬТАТ!
-          </button>
-        `: null}
-      </div>
-    </div>
-  `;
+  const panel = document.createElement('div');
+  panel.className = 'comic-panel';
   
-  container.appendChild(screen);
+  const heading = document.createElement('h1');
+  heading.className = 'comic-title';
+  heading.textContent = 'ВЫБОР: ' + title;
+  panel.appendChild(heading);
   
-  // Card click handlers
-  const cards = screen.querySelectorAll('.card');
-  cards.forEach(card => {
+  const progress = document.createElement('div');
+  progress.className = 'progress-bar';
+  const progressFill = document.createElement('div');
+  progressFill.className = 'progress-fill';
+  
+  let progressWidth, progressText;
+  if (state.currentCategory === 'genres') {
+    progressWidth = '33';
+    progressText = '1/3';
+  } else if (state.currentCategory === 'styles') {
+    progressWidth = '66';
+    progressText = '2/3';
+  } else {
+    progressWidth = '100';
+    progressText = '3/3';
+  }
+  
+  progressFill.style.width = progressWidth + '%';
+  progressFill.textContent = progressText;
+  progress.appendChild(progressFill);
+  panel.appendChild(progress);
+  
+  const bubble = document.createElement('div');
+  bubble.className = 'speech-bubble';
+  const bubbleText = document.createElement('p');
+  bubbleText.style.fontSize = '1.1rem';
+  bubbleText.textContent = 'Выберите подходящие варианты для вашего класса. Можно выбрать несколько!';
+  bubble.appendChild(bubbleText);
+  panel.appendChild(bubble);
+  
+  const counter = document.createElement('div');
+  counter.className = 'counter';
+  counter.textContent = 'Выбрано: ';
+  const counterSpan = document.createElement('span');
+  counterSpan.id = 'counter';
+  counterSpan.textContent = selectedItems.length.toString();
+  counter.appendChild(counterSpan);
+  panel.appendChild(counter);
+  
+  const grid = document.createElement('div');
+  grid.className = 'cards-grid';
+  grid.id = 'cardsGrid';
+  
+  data.forEach(item => {
+    const isSelected = selectedItems.includes(item.id);
+    const card = createCard(item, isSelected);
+    
     const handleClick = () => {
       const id = card.dataset.id;
       const index = selectedItems.indexOf(id);
@@ -671,14 +640,20 @@ function renderSelectionScreen(container) {
         handleClick();
       }
     });
+    
+    grid.appendChild(card);
   });
   
-  // Navigation handlers
-  const prevBtn = screen.querySelector('#prevBtn');
-  const nextBtn = screen.querySelector('#nextBtn');
-  const finalBtn = screen.querySelector('#finalBtn');
+  panel.appendChild(grid);
   
-  if (prevBtn) {
+  const navButtons = document.createElement('div');
+  navButtons.className = 'nav-buttons';
+  
+  if (state.currentCategory !== 'genres') {
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'btn-comic btn-blue';
+    prevBtn.setAttribute('aria-label', 'Предыдущая категория');
+    prevBtn.textContent = '← НАЗАД';
     prevBtn.addEventListener('click', () => {
       if (state.currentCategory === 'styles') {
         state.currentCategory = 'genres';
@@ -688,9 +663,14 @@ function renderSelectionScreen(container) {
       saveState();
       render();
     });
+    navButtons.appendChild(prevBtn);
   }
   
-  if (nextBtn) {
+  if (state.currentCategory !== 'concepts') {
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn-comic';
+    nextBtn.setAttribute('aria-label', 'Следующая категория');
+    nextBtn.textContent = 'ДАЛЕЕ →';
     nextBtn.addEventListener('click', () => {
       if (state.currentCategory === 'genres') {
         state.currentCategory = 'styles';
@@ -700,117 +680,124 @@ function renderSelectionScreen(container) {
       saveState();
       render();
     });
-  }
-  
-  if (finalBtn) {
+    navButtons.appendChild(nextBtn);
+  } else {
+    const finalBtn = document.createElement('button');
+    finalBtn.className = 'btn-comic';
+    finalBtn.setAttribute('aria-label', 'Показать результаты');
+    finalBtn.textContent = 'ПОКАЗАТЬ РЕЗУЛЬТАТ!';
     finalBtn.addEventListener('click', () => {
       state.currentScreen = 'final';
       saveState();
       render();
     });
+    navButtons.appendChild(finalBtn);
   }
+  
+  panel.appendChild(navButtons);
+  screen.appendChild(panel);
+  
+  return screen;
 }
 
-function renderFinalScreen(container) {
+function createResultsSection(title, emoji, items, data) {
+  const section = document.createElement('div');
+  section.className = 'results-section';
+  
+  const heading = document.createElement('h2');
+  heading.className = 'results-title';
+  heading.textContent = emoji + ' ' + title;
+  section.appendChild(heading);
+  
+  if (items.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = 'Не выбрано ни одного варианта';
+    section.appendChild(empty);
+  } else {
+    const list = document.createElement('ul');
+    list.className = 'results-list';
+    
+    items.slice(0, 3).forEach((id, index) => {
+      const item = data.find(d => d.id === id);
+      if (item) {
+        const li = document.createElement('li');
+        li.className = 'results-item';
+        
+        const number = document.createElement('div');
+        number.className = 'results-item-number';
+        number.textContent = (index + 1).toString();
+        li.appendChild(number);
+        
+        const content = document.createElement('div');
+        
+        const name = document.createElement('strong');
+        name.textContent = item.name;
+        content.appendChild(name);
+        
+        const desc = document.createElement('p');
+        desc.style.fontSize = '0.9rem';
+        desc.style.marginTop = '5px';
+        desc.style.fontFamily = 'Arial, sans-serif';
+        desc.textContent = item.desc;
+        content.appendChild(desc);
+        
+        li.appendChild(content);
+        list.appendChild(li);
+      }
+    });
+    
+    section.appendChild(list);
+  }
+  
+  return section;
+}
+
+function createFinalScreen() {
   const screen = document.createElement('main');
   screen.className = 'screen active';
   screen.setAttribute('role', 'main');
   
-  const topGenres = state.selectedGenres.slice(0, 3);
-  const topStyles = state.selectedStyles.slice(0, 3);
-  const topConcepts = state.selectedConcepts.slice(0, 3);
+  const panel = document.createElement('div');
+  panel.className = 'comic-panel';
   
-  screen.innerHTML = `
-    <div class="comic-panel">
-      <h1 class="comic-title">ВАШ ВЫБОР!</h1>
-      
-      <div class="speech-bubble">
-        <p style="font-size: 1.1rem;">
-          Отличный выбор! Вот ваши топ-3 варианта в каждой категории для создания незабываемого последнего звонка!
-        </p>
-      </div>
-      
-      ${topGenres.length > 0 ? `
-        <div class="results-section">
-          <h2 class="results-title">📚 ТОП-3 ЖАНРА</h2>
-          <ul class="results-list">
-            ${topGenres.map((id, index) => {
-              const genre = GENRES.find(g => g.id === id);
-              return `
-                <li class="results-item">
-                  <div class="results-item-number">${index + 1}</div>
-                  <div>
-                    <strong>${genre.name}</strong>
-                    <p style="font-size: 0.9rem; margin-top: 5px; font-family: Arial, sans-serif;">${genre.desc}</p>
-                  </div>
-                </li>
-              `;
-            }).join('')}
-          </ul>
-        </div>
-      ` : '<div class="empty-state">Не выбрано ни одного жанра</div>'}
-      
-      ${topStyles.length > 0 ? `
-        <div class="results-section">
-          <h2 class="results-title">🎨 ТОП-3 СТИЛЯ</h2>
-          <ul class="results-list">
-            ${topStyles.map((id, index) => {
-              const style = STYLES.find(s => s.id === id);
-              return `
-                <li class="results-item">
-                  <div class="results-item-number">${index + 1}</div>
-                  <div>
-                    <strong>${style.name}</strong>
-                    <p style="font-size: 0.9rem; margin-top: 5px; font-family: Arial, sans-serif;">${style.desc}</p>
-                  </div>
-                </li>
-              `;
-            }).join('')}
-          </ul>
-        </div>
-      ` : '<div class="empty-state">Не выбрано ни одного стиля</div>'}
-      
-      ${topConcepts.length > 0 ? `
-        <div class="results-section">
-          <h2 class="results-title">🎭 ТОП-3 КОНЦЕПЦИИ</h2>
-          <ul class="results-list">
-            ${topConcepts.map((id, index) => {
-              const concept = CONCEPTS.find(c => c.id === id);
-              return `
-                <li class="results-item">
-                  <div class="results-item-number">${index + 1}</div>
-                  <div>
-                    <strong>${concept.name}</strong>
-                    <p style="font-size: 0.9rem; margin-top: 5px; font-family: Arial, sans-serif;">${concept.desc}</p>
-                  </div>
-                </li>
-              `;
-            }).join('')}
-          </ul>
-        </div>
-      ` : '<div class="empty-state">Не выбрано ни одной концепции</div>'}
-      
-      <div class="nav-buttons">
-        <button class="btn-comic btn-blue" id="backBtn" aria-label="Вернуться к выбору">
-          ← ВЕРНУТЬСЯ К ВЫБОРУ
-        </button>
-        <button class="btn-comic" id="restartBtn" aria-label="Начать заново">
-          НАЧАТЬ ЗАНОВО
-        </button>
-      </div>
-    </div>
-  `;
+  const heading = document.createElement('h1');
+  heading.className = 'comic-title';
+  heading.textContent = 'ВАШ ВЫБОР!';
+  panel.appendChild(heading);
   
-  container.appendChild(screen);
+  const bubble = document.createElement('div');
+  bubble.className = 'speech-bubble';
+  const bubbleText = document.createElement('p');
+  bubbleText.style.fontSize = '1.1rem';
+  bubbleText.textContent = 'Отличный выбор! Вот ваши топ-3 варианта в каждой категории для создания незабываемого последнего звонка!';
+  bubble.appendChild(bubbleText);
+  panel.appendChild(bubble);
   
-  document.getElementById('backBtn').addEventListener('click', () => {
+  panel.appendChild(createResultsSection('ТОП-3 ЖАНРА', '📚', state.selectedGenres, GENRES));
+  panel.appendChild(createResultsSection('ТОП-3 СТИЛЯ', '', state.selectedStyles, STYLES));
+  panel.appendChild(createResultsSection('ТОП-3 КОНЦЕПЦИИ', '🎭', state.selectedConcepts, CONCEPTS));
+  
+  const navButtons = document.createElement('div');
+  navButtons.className = 'nav-buttons';
+  
+  const backBtn = document.createElement('button');
+  backBtn.className = 'btn-comic btn-blue';
+  backBtn.setAttribute('aria-label', 'Вернуться к выбору');
+  backBtn.textContent = '← ВЕРНУТЬСЯ К ВЫБОРУ';
+  backBtn.addEventListener('click', () => {
     state.currentScreen = 'selection';
     state.currentCategory = 'genres';
     saveState();
     render();
   });
+  navButtons.appendChild(backBtn);
   
-  document.getElementById('restartBtn').addEventListener('click', () => {
+  const restartBtn = document.createElement('button');
+  restartBtn.className = 'btn-comic';
+  restartBtn.setAttribute('aria-label', 'Начать заново');
+  restartBtn.textContent = 'НАЧАТЬ ЗАНОВО';
+  restartBtn.addEventListener('click', () => {
     if (confirm('Вы уверены, что хотите начать заново? Все выборы будут сброшены.')) {
       state = {
         currentScreen: 'start',
@@ -823,9 +810,31 @@ function renderFinalScreen(container) {
       render();
     }
   });
+  navButtons.appendChild(restartBtn);
+  
+  panel.appendChild(navButtons);
+  screen.appendChild(panel);
+  
+  return screen;
 }
 
-// Initialize
+function render() {
+  clearApp();
+  
+  let screen;
+  if (state.currentScreen === 'start') {
+    screen = createStartScreen();
+  } else if (state.currentScreen === 'selection') {
+    screen = createSelectionScreen();
+  } else if (state.currentScreen === 'final') {
+    screen = createFinalScreen();
+  }
+  
+  if (screen) {
+    document.getElementById('app').appendChild(screen);
+  }
+}
+
 function init() {
   loadState();
   render();
